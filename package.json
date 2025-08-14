@@ -8,9 +8,13 @@
     "dev": "nodemon app.js"
   },
   "dependencies": {
+    "@arcjet/inspect": "^1.0.0-beta.10",
+    "@arcjet/node": "^1.0.0-beta.10",
+    "@upstash/workflow": "^0.2.17",
     "argon2": "^0.44.0",
     "bcryptjs": "^3.0.2",
     "cookie-parser": "~1.4.4",
+    "dayjs": "^1.11.13",
     "debug": "~2.6.9",
     "dotenv": "^17.2.1",
     "email-verificationtoken": "^0.0.3",

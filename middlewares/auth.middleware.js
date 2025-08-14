@@ -19,7 +19,7 @@ const authMiddleware = async(req, res, next) =>{
         
         if(!user)return res.status(401).json({message: "Unauthorized"});
 
-        // set the user object to be the found user based on if the user is authorized
+        // set the user object to be the found user gotten from the user authorization
         req.user = user;
 
         next();

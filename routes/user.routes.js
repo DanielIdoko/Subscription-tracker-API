@@ -1,18 +1,16 @@
 import { Router } from "express";
-import { getUser, getUsers} from '../controllers/user.controller.js'
-import authMiddleware from '../middlewares/auth.middleware.js'
-import adminMiddleware from '../middlewares/admin.middleware.js'
+import {
+  deleteUser,
+  getUser,
+  updateUser,
+} from "../controllers/user.controller.js";
+import authMiddleware from "../middlewares/auth.middleware.js";
 
 const userRouter = Router();
 
-// Routes with middlewares
-userRouter.get("/", adminMiddleware, getUsers)
-userRouter.get("/:id", authMiddleware, getUser)
+// Routes
+userRouter.get("/:id", authMiddleware, getUser);
+userRouter.put("/:id", authMiddleware, updateUser);
+userRouter.delete("/:id", authMiddleware, deleteUser);
 
-// Routes without middlewares
-userRouter.post("/", (req, res)=> res.send({title: "Create a new user"}))
-userRouter.put("/:id", (req, res)=> res.send({title: "Update user"}))
-userRouter.delete("/:id", (req, res)=> res.send({title: "Delete a specific user"}))
-
-
-export default userRouter
+export default userRouter;

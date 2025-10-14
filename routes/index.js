@@ -1,6 +1,5 @@
-import authRouter from './auth.routes.js'
-import userRouter from './user.routes.js'
-import subscriptionRouter from './subscription.routes.js'
-import adminRouter from './admin.route.js'
+import authRouter from "./auth.routes.js";
+import userRouter from "./user.routes.js";
+import subscriptionRouter from "./subscription.routes.js";
 
-export { adminRouter, authRouter, userRouter, subscriptionRouter };
+export { authRouter, userRouter, subscriptionRouter };

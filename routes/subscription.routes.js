@@ -1,18 +1,24 @@
 import { Router } from "express";
 import authMiddleware from "../middlewares/auth.middleware.js";
-import adminMiddleware from "../middlewares/admin.middleware.js";
-import {createSubscription, getUserSubscriptions, getAllSubscriptions} from '../controllers/subscription.controller.js'
+import {
+  createSubscription,
+  deleteSubscription,
+  getAllSubscriptions,
+  getSubscription,
+  updateSubscription,
+} from "../controllers/subscription.controller.js";
 
-const subscriptionRouter = Router()
+const subscriptionRouter = Router();
 
-subscriptionRouter.get("/", adminMiddleware, getAllSubscriptions)
-
-subscriptionRouter.post("/", authMiddleware, createSubscription)
-
-subscriptionRouter.put("/:id", (req, res) => res.send({title: "Update subscriptions"}))
-
-subscriptionRouter.delete("/:id", (req, res) => res.send({title: "Delete subscriptions"}))
-
-subscriptionRouter.get("/user/:id", authMiddleware, getUserSubscriptions)
+// Get all subscriptions
+subscriptionRouter.get("/", authMiddleware, getAllSubscriptions);
+// Get a single subscription
+subscriptionRouter.get("/:id", authMiddleware, getSubscription);
+// Create/add a subscription
+subscriptionRouter.post("/", authMiddleware, createSubscription);
+// Update subscriptions
+subscriptionRouter.put("/:id", authMiddleware, updateSubscription);
+// Delete subscription(s)
+subscriptionRouter.delete("/:id", authMiddleware, deleteSubscription);
 
 export default subscriptionRouter;

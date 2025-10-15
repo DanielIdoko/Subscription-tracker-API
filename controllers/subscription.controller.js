@@ -14,9 +14,9 @@ export const createSubscription = async (req, res) => {
 
     res.status(201).json({ success: true, data: subscription });
   } catch (err) {
-    res.status(500).json({
+    res.status(err.message || 500).json({
       success: false,
-      error: "An error occured while creating subscriptions.",
+      error: err.message || "An error occured while creating subscriptions.",
     });
   }
 };
@@ -29,7 +29,7 @@ export const createSubscription = async (req, res) => {
 export const getAllSubscriptions = async (req, res) => {
   try {
     // Validate user
-    if (req.user.id != req.params.id) {
+    if (req.user.id.toString() !== req.params.id) {
       const err = new Error("Invalid accunt trying to access subscriptions");
       err.status = 401;
       throw err;
@@ -39,9 +39,9 @@ export const getAllSubscriptions = async (req, res) => {
 
     res.status(200).json({ success: true, data: subscriptions || [] });
   } catch (error) {
-    res.status(500).json({
+    res.status(error.status || 500).json({
       success: false,
-      error: "An internal server error occured",
+      error: error.message || "An internal server error occurred",
     });
   }
 };
@@ -53,6 +53,12 @@ export const getAllSubscriptions = async (req, res) => {
  **/
 export const getSubscription = async (req, res) => {
   try {
+    if (!req.user) {
+      return res
+        .status(401)
+        .json({ success: false, error: "User not authenticated" });
+    }
+
     // Validate user
     if (req.user.id != req.params.id) {
       const err = new Error("Invalid accunt trying to access subscription");
@@ -60,16 +66,16 @@ export const getSubscription = async (req, res) => {
       throw err;
     }
 
-    const subscription = await Subscription.findOne(req.params.id);
+    const subscription = await Subscription.findById(req.params.subscriptionId);
 
     res.status(200).json({
       success: true,
       data: subscription || "Subscription may have been deleted. Create one",
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(error.status || 500).json({
       success: false,
-      error: "An internal server error occured",
+      error: error.message || "An internal server error occurred",
     });
   }
 };
@@ -82,14 +88,14 @@ export const getSubscription = async (req, res) => {
 export const updateSubscription = async (req, res) => {
   try {
     // Validate user
-    if (req.user.id != req.params.id) {
+    if (req.user._id != req.params.id) {
       const err = new Error("Invalid accunt trying to update subscription");
       err.status = 401;
       throw err;
     }
 
     const subscription = await Subscription.findByIdAndUpdate(
-      { _id: req.params.id },
+      { _id: req.params.subscriptionId },
       { $set: { ...req.body } },
       { new: true }
     );
@@ -100,9 +106,9 @@ export const updateSubscription = async (req, res) => {
       data: subscription,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(error.status || 500).json({
       success: false,
-      error: "An internal server error occured",
+      error: error.message || "An internal server error occurred",
     });
   }
 };
@@ -122,7 +128,7 @@ export const deleteSubscription = async (req, res) => {
     }
 
     const subscription = await Subscription.findOneAndDelete({
-      _id: req.params.id,
+      _id: req.params.subscriptionId,
     });
 
     res.status(200).json({
@@ -131,9 +137,9 @@ export const deleteSubscription = async (req, res) => {
       data: subscription,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(error.status || 500).json({
       success: false,
-      error: "An internal server error occured",
+      error: error.message || "An internal server error occurred",
     });
   }
 };

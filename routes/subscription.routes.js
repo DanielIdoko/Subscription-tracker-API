@@ -11,14 +11,14 @@ import {
 const subscriptionRouter = Router();
 
 // Get all subscriptions
-subscriptionRouter.get("/", authMiddleware, getAllSubscriptions);
+subscriptionRouter.get("/:id", authMiddleware, getAllSubscriptions);
 // Get a single subscription
-subscriptionRouter.get("/:id", authMiddleware, getSubscription);
+subscriptionRouter.get("/:id/:subscriptionId", authMiddleware, getSubscription);
 // Create/add a subscription
-subscriptionRouter.post("/", authMiddleware, createSubscription);
+subscriptionRouter.post("/:id", authMiddleware, createSubscription);
 // Update subscriptions
-subscriptionRouter.put("/:id", authMiddleware, updateSubscription);
+subscriptionRouter.put("/:id/:subscriptionId", authMiddleware, updateSubscription);
 // Delete subscription(s)
-subscriptionRouter.delete("/:id", authMiddleware, deleteSubscription);
+subscriptionRouter.delete("/:id/:subscriptionId", authMiddleware, deleteSubscription);
 
 export default subscriptionRouter;

@@ -24,14 +24,14 @@ const app = express();
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(arcjetMiddleware);
+// app.use(arcjetMiddleware);
 app.use(cookieParser());
+app.use(errorMiddleware);
 
-// Prependings for separate routes
+// Routes
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/user", userRouter);
-app.use("/api/v1/user/subscriptions", subscriptionRouter);
-app.use(errorMiddleware);
+app.use("/api/v1/subscriptions", subscriptionRouter);
 
 // This below is just to make sure that you don't get "Cannot GET '/'" from Nodejs
 app.get("/", (req, res) => {

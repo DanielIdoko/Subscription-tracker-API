@@ -15,9 +15,9 @@ const app = express();
 
 // For your cors - if you would be connecting this API to a frontend
 let corsOptions = {
-    origin: '*',
-    methods: ['GET','POST','PUT','DELETE','PATCH'],
-  credentials: true
+    origin: ['http://localhost:5173'],
+    methods: ['GET','POST','PUT','DELETE'],
+    credentials: true
 }
 
 app.use(cors(corsOptions))
@@ -25,6 +25,8 @@ app.use(cors(corsOptions))
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+
 // app.use(arcjetMiddleware);
 app.use(cookieParser());
 app.use(errorMiddleware);

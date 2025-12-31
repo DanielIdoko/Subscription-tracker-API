@@ -12,7 +12,7 @@ import errorMiddleware from "./middlewares/error.middleware.js";
 import cookieParser from "cookie-parser";
 
 const app = express();
-connectToDatabase();
+
 
 // For your cors - if you would be connecting this API to a frontend
 let corsOptions = {
@@ -45,8 +45,9 @@ app.get("/", (req, res) => {
 });
 
 // Run server
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`App running on port http://localhost:${PORT}`);
+  await connectToDatabase();
 });
 
 export default app;

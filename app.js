@@ -1,5 +1,5 @@
 import express from "express";
-// const cors = require('cors')
+import cors from 'cors'
 import { PORT } from "./config/env.js";
 import connectToDatabase from "./database/mongodb.js";
 import {
@@ -14,12 +14,12 @@ import cookieParser from "cookie-parser";
 const app = express();
 
 // For your cors - if you would be connecting this API to a frontend
-// let corsOptions = {
-//     origin: 'http://localhost:PORT',
-//     methods: ['GET','POST','PUT','DELETE','PATCH'],
-// }
+let corsOptions = {
+    origin: '*',
+    methods: ['GET','POST','PUT','DELETE','PATCH'],
+}
 
-// app.use(cors(corsOptions))
+app.use(cors(corsOptions))
 
 // Middlewares
 app.use(express.json());

@@ -15,9 +15,10 @@ export const signUp = async (req, res, next) => {
     const { name, email, password } = req.body;
 
     if(!email){
-      const error = new Error("Please fill in the neccessary fields");
-      error.status = 400;
-      throw error;
+     res.status(400).json({
+      success: false,
+      error: 'Please fill in the neccessary fields'
+     })
     }
     
     // Check if user already exists

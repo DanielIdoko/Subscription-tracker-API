@@ -15,13 +15,13 @@ export const signUp = async (req, res, next) => {
     const { name, email, password } = req.body;
 
     // Check if user already exists
-    const existingUser = await User.findOne({ email });
+    // const existingUser = await User.findOne({ email });
 
-    if (existingUser) {
-      const error = new Error("Sorry, that user already exists");
-      error.status = 409;
-      throw error;
-    }
+    // if (existingUser) {
+    //   const error = new Error("Sorry, that user already exists");
+    //   error.status = 409;
+    //   throw error;
+    // }
 
     // Hash the password
     const salt = await bcrypt.genSalt(10);

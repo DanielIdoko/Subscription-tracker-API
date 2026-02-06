@@ -1,6 +1,6 @@
-# 📦 Subscription Management API
+# Subscription Management API
 
-A robust RESTful API for managing user accounts and subscriptions, built with **Node.js**, **Express**, **MongoDB**, and **JWT authentication**.  
+A robust RESTful API for managing user accounts and global subscriptions built with **node.js**, **Express**, **MongoDB**, and **JWT authentication**.  
 It provides secure authentication endpoints, session handling with cookies, and subscription CRUD operations.
 
 ---

@@ -213,6 +213,8 @@ You can test the API with any of these tools:
 
 - 💻 Thunder Client (VS Code)
 
+- 🧪 API dog
+
 
 #### Testing flow
 
@@ -228,13 +230,3 @@ You can test the API with any of these tools:
 | `npm run dev`  | Run server in development mode (nodemon) |
 | `npm start`    | Run server in production mode            |
 | `npm run lint` | Run ESLint checks                        |
-
-
-# 🧑‍💻 Author
-### Bio
-- Idoko Daniel
-- 💼 Full-Stack engineer
-- 📧 danielidoko46@gmail.com
-
-### 🔗 LinkedIn Profile
-- https://www.linkedin.com/in/danielidokodev

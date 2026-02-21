@@ -12,9 +12,8 @@ const app = express();
 
 // For your cors - if you would be connecting this API to a frontend
 let corsOptions = {
-    origin: ['http://localhost:5173'],
-    methods: ['GET','POST','PUT','DELETE'],
-    credentials: true
+    origin: 'http://localhost:5173',
+    methods: ['GET','POST','PUT','DELETE','PATCH'],
 }
 
 app.use(cors(corsOptions))
@@ -44,6 +43,7 @@ app.get("/health", (req, res) => {
   res.status(200).json({
     success: true,
     message: "Health Ok!",
+    timestamp: Date.now()
   });
 });
 

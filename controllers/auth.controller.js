@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -10,7 +9,7 @@ import { JWT_EXPIRES_IN, JWT_SECRET, NODE_ENV } from "../config/env.js";
  * @Route POST /
  * @Access Public
  **/
-export const signUp = async (req, res, next) => {
+export const signUp = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
@@ -22,13 +21,13 @@ export const signUp = async (req, res, next) => {
     }
     
     // Check if user already exists
-    // const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email: email });
 
-    // if (existingUser) {
-    //   const error = new Error("Sorry, that user already exists");
-    //   error.status = 409;
-    //   throw error;
-    // }
+    if (existingUser) {
+      const error = new Error("Invalid User Account.");
+      error.status = 409;
+      throw error;
+    }
 
     // Hash the password
     const salt = await bcrypt.genSalt(10);
@@ -81,7 +80,7 @@ export const signUp = async (req, res, next) => {
  * @Route POST /
  * @Access Public
  **/
-export const signIn = async (req, res, next) => {
+export const signIn = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -151,7 +150,7 @@ export const signIn = async (req, res, next) => {
  * @Route POST /:id
  * @Access User
  **/
-export const signOut = async (req, res, next) => {
+export const signOut = async (req, res) => {
   try {
     if (!req.user || req.user.id.toString() !== req.params.id) {
       const error = new Error("Unauthorised logout attempt");

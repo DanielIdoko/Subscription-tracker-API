@@ -13,6 +13,13 @@ export const signUp = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
+    if(!email){
+     res.status(400).json({
+      success: false,
+      error: 'Please fill in the neccessary fields'
+     })
+    }
+    
     // Check if user already exists
     const existingUser = await User.findOne({ email: email });
 

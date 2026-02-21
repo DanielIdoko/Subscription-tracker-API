@@ -9,6 +9,7 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 
+
 // For your cors - if you would be connecting this API to a frontend
 let corsOptions = {
     origin: 'http://localhost:5173',
@@ -20,6 +21,8 @@ app.use(cors(corsOptions))
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+
 // app.use(arcjetMiddleware);
 app.use(cookieParser());
 app.use(errorMiddleware);

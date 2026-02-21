@@ -1,3 +1,4 @@
+import Subscription from "../models/subscriptions.model.js";
 import User from "../models/user.models.js";
 
 /**
@@ -5,14 +6,15 @@ import User from "../models/user.models.js";
  * @Route GET /:id
  * @Access User
  **/
-export const getUser = async (req, res, next) => {
+export const getUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id).select("-password");
 
     if (!user) {
-      const error = new Error("User not found");
-      error.statusCode = 404;
-      throw error;
+      return res.status(404).json({
+        success: true,
+        error: "Invalid user, try again",
+      });
     }
 
     res.status(200).json({
@@ -20,7 +22,10 @@ export const getUser = async (req, res, next) => {
       data: user,
     });
   } catch (error) {
-    next(error);
+    res.status(error.status || 500).json({
+      success: false,
+      error: error.message || "An internal server error occurred",
+    });
   }
 };
 
@@ -29,19 +34,24 @@ export const getUser = async (req, res, next) => {
  * @Route DELETE /:id
  * @Access User
  **/
-export const deleteUser = async (req, res, next) => {
+export const deleteUser = async (req, res) => {
   try {
     // code to delete user from databae based on id
     const user = await User.findByIdAndDelete(req.params.id);
 
-    if (!user) return res.status(404).json({ message: "User not found" });
+    if (!user) return res.status(404).json({ message: "Invalid user, try again." });
+
+    await Subscription.deleteMany({ user });
 
     res.status(200).json({
       success: true,
       message: "Account successfully removed.",
     });
   } catch (error) {
-    next(error);
+    res.status(error.status || 500).json({
+      success: false,
+      error: error.message || "An internal server error occurred",
+    });
   }
 };
 
@@ -50,25 +60,39 @@ export const deleteUser = async (req, res, next) => {
  * @Route UPDATE /:id
  * @Access User
  **/
-export const updateUser = async (req, res, next) => {
+export const updateUser = async (req, res) => {
   try {
-    // code to update user to databae based on id
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    }).select("-password");
-
-    
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+    const { email, name, password } = req.body;
+    if (!req.params.id) {
+      return res.status(400).json({ error: "Please provide a user id." });
     }
 
+    //Find and update user details
+    const user = await User.findByIdAndUpdate(
+      req.params.id,
+      { $set: { ...req.body } },
+      {
+        new: true,
+        runValidators: true,
+      }
+    ).select("-password");
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ error: "Invalid User, try again." });
+    }
+
+    // Response message
     res.status(200).json({
       success: true,
       message: "Account successfully updated",
+      data: user,
     });
-
   } catch (error) {
-    next(error);
+    res.status(error.status || 500).json({
+      success: false,
+      error: error.message || "An internal server error occurred",
+    });
   }
 };

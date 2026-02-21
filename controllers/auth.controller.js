@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -9,22 +10,15 @@ import { JWT_EXPIRES_IN, JWT_SECRET, NODE_ENV } from "../config/env.js";
  * @Route POST /
  * @Access Public
  **/
-export const signUp = async (req, res) => {
+export const signUp = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
 
-    if(!email){
-     res.status(400).json({
-      success: false,
-      error: 'Please fill in the neccessary fields'
-     })
-    }
-    
     // Check if user already exists
-    const existingUser = await User.findOne({ email: email });
+    const existingUser = await User.findOne({ email });
 
     if (existingUser) {
-      const error = new Error("Invalid User Account.");
+      const error = new Error("Sorry, that user already exists");
       error.status = 409;
       throw error;
     }
@@ -80,7 +74,7 @@ export const signUp = async (req, res) => {
  * @Route POST /
  * @Access Public
  **/
-export const signIn = async (req, res) => {
+export const signIn = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
@@ -150,7 +144,7 @@ export const signIn = async (req, res) => {
  * @Route POST /:id
  * @Access User
  **/
-export const signOut = async (req, res) => {
+export const signOut = async (req, res, next) => {
   try {
     if (!req.user || req.user.id.toString() !== req.params.id) {
       const error = new Error("Unauthorised logout attempt");

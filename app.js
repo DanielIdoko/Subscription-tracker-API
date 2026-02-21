@@ -1,5 +1,5 @@
 import express from "express";
-// const cors = require('cors')
+import cors from 'cors'
 import { PORT } from "./config/env.js";
 import connectToDatabase from "./database/mongodb.js";
 import { authRouter, subscriptionRouter, userRouter } from "./routes/index.js";
@@ -10,12 +10,12 @@ import cookieParser from "cookie-parser";
 const app = express();
 
 // For your cors - if you would be connecting this API to a frontend
-// let corsOptions = {
-//     origin: 'http://localhost:PORT',
-//     methods: ['GET','POST','PUT','DELETE','PATCH'],
-// }
+let corsOptions = {
+    origin: 'http://localhost:5173',
+    methods: ['GET','POST','PUT','DELETE','PATCH'],
+}
 
-// app.use(cors(corsOptions))
+app.use(cors(corsOptions))
 
 // Middlewares
 app.use(express.json());
@@ -40,6 +40,7 @@ app.get("/health", (req, res) => {
   res.status(200).json({
     success: true,
     message: "Health Ok!",
+    timestamp: Date.now()
   });
 });
 

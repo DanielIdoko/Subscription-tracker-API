@@ -2,10 +2,11 @@ import express from "express";
 import cors from "cors";
 import { PORT } from "./config/env.js";
 import connectToDatabase from "./database/mongodb.js";
-import { authRouter, subscriptionRouter, userRouter } from "./routes/index.js";
+import { subscriptionRouter, userRouter } from "./routes/index.js";
 import arcjetMiddleware from "./middlewares/arcjet.middleware.js";
 import errorMiddleware from "./middlewares/error.middleware.js";
 import cookieParser from "cookie-parser";
+// import { clerkMiddleware } from "@clerk/express";
 
 const app = express();
 
@@ -23,8 +24,10 @@ app.use(arcjetMiddleware);
 app.use(cookieParser());
 app.use(errorMiddleware);
 
+// clerk
+// app.use(clerkMiddleware());
+
 // ROutes mounting
-app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/user/subscriptions", subscriptionRouter);
 

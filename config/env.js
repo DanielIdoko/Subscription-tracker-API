@@ -1,14 +1,20 @@
-import { config } from "dotenv";
+import { env } from "bun";
 
-config({path: `.env.${process.env.NODE_ENV || 'development'}.local`});
+export const {
+  ARCJET_KEY,
+  ARCJET_ENV,
+  DB_URI,
+  CLERK_WEBHOOK_SECRET,
+  CLERK_SECRET_KEY,
+  CLERK_PUBLISHABLE_KEY,
+  JWT_SECRET,
+  JWT_EXPIRES_IN,
+  QSTASH_URL,
+  QSTASH_TOKEN,
+  QSTASH_CURRENT_SIGNING_KEY,
+  QSTASH_NEXT_SIGNING_KEY,
+  NODE_ENV,
+  BUN_PORT,
+  SERVER_URL,
+} = env;
 
-export const { 
-    PORT, 
-    SERVER_URL,
-    NODE_ENV, 
-    DB_URI, 
-    JWT_SECRET, JWT_EXPIRES_IN,
-    ARCJET_KEY, ARCJET_ENV,
-    QSTASH_URL, QSTASH_TOKEN, QSTASH_CURRENT_SIGNING_KEY, 
-    QSTASH_NEXT_SIGNING_KEY
-} = process.env;

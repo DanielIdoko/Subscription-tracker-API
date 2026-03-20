@@ -1,33 +1,62 @@
-    # 📦 Subscription Management API
+# Subscription Management API
 
-A robust RESTful API for managing user accounts and subscriptions, built with **Node.js**, **Express**, **MongoDB**, and **JWT authentication**.  
-It provides secure authentication endpoints, session handling with cookies, and subscription CRUD operations.
+A production-grade RESTful API for managing user subscriptions and payments. Built with modern technologies for scalability, security, and maintainability.
 
----
+## ✨ Features
 
-## Features
+### 🔐 Authentication & Security
+- JWT-based authentication with access & refresh tokens
+- Password hashing with bcryptjs
+- HTTP-only secure cookies
+- Rate limiting
+- Helmet security headers
+- CORS configuration
+- NoSQL injection prevention
+- Input validation with Zod
 
-- 🔐 **JWT Authentication** (stored securely in cookies or via Bearer tokens)
-- 👤 **User Registration & Login**
-- 🚪 **User Logout / Token Revocation**
-- 💳 **Subscription Management** (view and manage user subscriptions)
-- 🧰 **MongoDB Integration** using Mongoose
-- ⚙️ **Error Handling & Validation**
-- 🌐 **Environment-based Configuration**
+### 👤 User Management
+- User registration and login
+- Profile management
+- Account deletion
+- Refresh token management
 
----
+### 📱 Subscription Management
+- Create, read, update, delete subscriptions
+- Multiple subscription categories
+- Flexible billing cycles (monthly, yearly)
+- Subscription status tracking (active, paused, cancelled)
+- Auto-renewal management
+- Upcoming renewal detection
 
-## 🏗️ Tech Stack
+### 📊 Dashboard & Analytics
+- Total monthly and yearly spending
+- Active subscription count
+- Category breakdown
+- Upcoming renewals list
+- Spending trends
+- Category analytics with average prices
 
-| Technology             | Description           |
-| ---------------------- | --------------------- |
-| **Node.js**            | JavaScript runtime    |
-| **Express.js**         | Web framework         |
-| **MongoDB + Mongoose** | Database & ODM        |
-| **JWT**                | Authentication tokens |
-| **bcryptjs**           | Password hashing      |
-| **dotenv**             | Environment variables |
-| **cookie-parser**      | Cookie management     |
+### ⏰ Advanced Features
+- Cron jobs for automatic renewal tracking
+- Notification system (simulated with logging)
+- Pagination, filtering, and sorting
+- Comprehensive error handling
+- Request logging
+- Aggregation pipelines for analytics
+
+## 🛠️ Tech Stack
+
+- **Runtime**: Node.js
+- **Framework**: Express.js
+- **Database**: MongoDB with Mongoose
+- **Authentication**: JWT
+- **Validation**: Zod
+- **Password Hashing**: bcryptjs
+- **Schedule**: node-cron
+- **Security**: Helmet, rate-limit
+- **Language**: TypeScript
+- **Logging**: Morgan
+- **HTTP Cookies**: cookie-parser
 
 ---
 

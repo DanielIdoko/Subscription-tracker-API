@@ -49,31 +49,26 @@ const connectDBMiddleware = async (
 
 // CORS
 const allowedOrigins = [
-  "https://managel-app.vercel.app",
   "http://localhost:5173",
+  "https://managel-app.vercel.app",
+  "http://managel-app.vercel.app",
 ];
 
 app.use(
-  cors({
-    origin: allowedOrigins,
-    // (origin, callback) => {
-    //   // If there's no origin (like a mobile app or Postman), allow it
-    //   if (!origin) return callback(null, true);
-
-    //   if (allowedOrigins.includes(origin)) {
-    //     callback(null, true);
-    //   } else {
-    //     // Log this to see what origin is actually trying to connect
-    //     console.error(`CORS Error: Origin ${origin} not allowed`);
-    //     callback(new Error("Not allowed by CORS"));
-    //   }
-    // },
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
-  }),
+  app.use(
+    cors({
+      origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+        const isAllowed = allowedOrigins.some((o) => o === origin);
+        if (isAllowed) {
+          callback(null, true);
+        } else {
+          callback(new Error(`CORS: ${origin} not allowed`));
+        }
+      },
+      credentials: true,
+    }),
+  ),
 );
 
 // 2. Parsers & Logging

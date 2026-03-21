@@ -50,7 +50,7 @@ const connectDBMiddleware = async (
 const allowedOrigins = [
   process.env.CORS_ORIGIN,
   "http://managel-app.vercel.app",
-  "http://localhost:5173",
+  // "http://localhost:5173",
 ];
 
 app.use(

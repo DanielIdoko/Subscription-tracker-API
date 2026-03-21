@@ -46,30 +46,8 @@ const connectDBMiddleware = async (
 /**
  * MIDDLEWARES
  */
-// CORS
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://managel-app.vercel.app",
-  "http://managel-app.vercel.app",
-];
+app.use(cors())
 
-app.use(
-  app.use(
-    cors({
-      origin: (origin, callback) => {
-        if (!origin) return callback(null, true);
-        const isAllowed = allowedOrigins.some((o) => o === origin);
-        if (isAllowed) {
-          callback(null, true);
-        } else {
-          callback(new Error(`CORS: ${origin} not allowed`));
-        }
-      },
-      credentials: true,
-      optionsSuccessStatus: 200,
-    }),
-  ),
-);
 // 2. Parsers & Logging
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

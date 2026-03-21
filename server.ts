@@ -41,7 +41,13 @@ const connectDBOnce = async () => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://managel-app.vercel.app/",
+    methods: ["GET", "POST", "PUT", "PATCH", "OPTIONS"],
+    allowedHeaders: "*",
+  }),
+);
 app.use(morgan("combined"));
 
 applySecurityMiddlewares(app);
@@ -75,10 +81,14 @@ apiV1.use("/users", userRoutes);
 apiV1.use("/subscriptions", subscriptionRoutes);
 apiV1.use("/dashboard", dashboardRoutes);
 
-app.use("/api/v1", async (req, res, next) => {
-  await connectDBOnce();
-  next();
-}, apiV1);
+app.use(
+  "/api/v1",
+  async (req, res, next) => {
+    await connectDBOnce();
+    next();
+  },
+  apiV1,
+);
 
 /**
  * ERROR HANDLING
@@ -87,12 +97,12 @@ app.use(notFoundHandler);
 app.use(errorHandler as any);
 
 // Global error handlers for serverless environment
-process.on('uncaughtException', (err) => {
-  console.error('Uncaught Exception:', err);
+process.on("uncaughtException", (err) => {
+  console.error("Uncaught Exception:", err);
 });
 
-process.on('unhandledRejection', (reason, promise) => {
-  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+process.on("unhandledRejection", (reason, promise) => {
+  console.error("Unhandled Rejection at:", promise, "reason:", reason);
 });
 
 export default app;

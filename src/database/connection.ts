@@ -1,6 +1,6 @@
 
 import mongoose from "mongoose";
-import { config } from "../config/env.ts";
+import { config } from "../config/env";
 
 /**
  * Connect to MongoDB
@@ -16,8 +16,6 @@ export const connectDatabase = async (): Promise<void> => {
       serverSelectionTimeoutMS: 5000,
       socketTimeoutMS: 45000,
       maxPoolSize: 10,
-      serverSelectionTimeoutMS: 5000,
-      socketTimeoutMS: 45000,
       family: 4
     });
 

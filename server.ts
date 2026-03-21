@@ -3,7 +3,7 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
-import { config } from "./src/config/env";
+// import { config } from "./src/config/env";
 import { connectDatabase } from "./src/database/connection";
 import { applySecurityMiddlewares } from "./src/middlewares/security";
 import { globalLimiter } from "./src/middlewares/rateLimiter";
@@ -25,12 +25,13 @@ let isConnected = false;
 const connectDBOnce = async () => {
   try {
     if (!isConnected) {
+      console.log("[DB] Connecting...");
       await connectDatabase();
       isConnected = true;
-      console.log("[DB] Connected successfully");
+      console.log("[DB] Connected");
     }
   } catch (error) {
-    console.error("[DB] Connection failed:", error);
+    console.error("[DB ERROR]", error);
     throw error;
   }
 };
@@ -93,7 +94,6 @@ app.get("/", (_req: Request, res: Response) => {
   });
 });
 
-
 const apiV1 = express.Router();
 
 apiV1.use("/auth", authRoutes);
@@ -117,12 +117,12 @@ app.use(notFoundHandler);
 app.use(errorHandler as any);
 
 // Global error handlers for serverless environment
-process.on("uncaughtException", (err) => {
-  console.error("Uncaught Exception:", err);
-});
+// process.on("uncaughtException", (err) => {
+//   console.error("Uncaught Exception:", err);
+// });
 
-process.on("unhandledRejection", (reason, promise) => {
-  console.error("Unhandled Rejection at:", promise, "reason:", reason);
-});
+// process.on("unhandledRejection", (reason, promise) => {
+//   console.error("Unhandled Rejection at:", promise, "reason:", reason);
+// });
 
 export default app;

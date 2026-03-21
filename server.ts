@@ -14,6 +14,7 @@ import { authRoutes } from "./src/routes/auth.routes";
 import { userRoutes } from "./src/routes/user.routes";
 import { subscriptionRoutes } from "./src/routes/subscription.routes";
 import { dashboardRoutes } from "./src/routes/dashboard.routes";
+import helmet from "helmet";
 
 const app: Application = express();
 
@@ -48,8 +49,14 @@ const connectDBMiddleware = async (
  */
 app.use(
   cors({
-    origin: ["http://managel-app.vercel.app", "https://managel-app.vercel.app"],
-    methods: ["GET", "POST", "PUT", "OPTIONS", "PATCH"],
+    origin: [
+      "http://managel-app.vercel.app",
+      "https://managel-app.vercel.app",
+      "http://localhost:5173",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
   }),
 );
 
@@ -57,6 +64,11 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(
+  helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+  }),
+);
 app.use(morgan("dev")); // 'dev' is often cleaner for logs than 'combined'
 
 applySecurityMiddlewares(app);

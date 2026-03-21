@@ -24,13 +24,13 @@ export const setupRenewalCheckJob = (): void => {
       // Process renewals
       for (const subscription of subscriptions) {
         try {
-          await subscriptionRepository.updateNextBillingDate(subscription._id!.toString());
+          await subscriptionRepository.updateNextBillingDate((subscription as any)._id!.toString());
           console.log(
             `[Cron] Updated renewal for subscription: ${subscription.name}`,
           );
         } catch (error) {
           console.error(
-            `[Cron] Error updating renewal for subscription ${subscription._id}:`,
+            `[Cron] Error updating renewal for subscription ${(subscription as any)._id}:`,
             error,
           );
         }

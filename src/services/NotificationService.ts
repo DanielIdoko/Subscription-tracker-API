@@ -203,10 +203,11 @@ export class NotificationService {
       const userRenewals = new Map<string, Array<{ name: string; nextBillingDate: Date }>>();
 
       for (const subscription of upcomingRenewals) {
-        if (!userRenewals.has(subscription.userId)) {
-          userRenewals.set(subscription.userId, []);
+        const userIdStr = subscription.userId.toString();
+        if (!userRenewals.has(userIdStr)) {
+          userRenewals.set(userIdStr, []);
         }
-        userRenewals.get(subscription.userId)!.push({
+        userRenewals.get(userIdStr)!.push({
           name: subscription.name,
           nextBillingDate: subscription.nextBillingDate,
         });

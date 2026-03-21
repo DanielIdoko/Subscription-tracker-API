@@ -27,7 +27,7 @@ export class DashboardService {
       upcomingRenewals: upcomingRenewals
         .slice(0, 5) // Limit to top 5
         .map((sub) => ({
-          id: sub._id?.toString() || "",
+          id: (sub as any)._id?.toString() || "",
           name: sub.name,
           nextBillingDate: sub.nextBillingDate,
           price: sub.price,

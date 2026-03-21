@@ -57,18 +57,18 @@ export class AuthService {
 
     // Generate tokens
     const accessToken = generateToken({
-      userId: user._id || user.id || "",
+      userId: (user as any)._id || user.id || "",
       email: user.email,
     });
 
     const refreshToken = generateRefreshToken({
-      userId: user._id || user.id || "",
+      userId: (user as any)._id || user.id || "",
       email: user.email,
     });
 
     // Store refresh token
     await userRepository.updateRefreshToken(
-      user._id || user.id || "",
+      (user as any)._id || user.id || "",
       refreshToken,
     );
 
@@ -106,21 +106,21 @@ export class AuthService {
 
     // Generate tokens
     const accessToken = generateToken({
-      userId: user._id.toString(),
+      userId: (user as any)._id.toString(),
       email: user.email,
     });
 
     const refreshToken = generateRefreshToken({
-      userId: user._id.toString(),
+      userId: (user as any)._id.toString(),
       email: user.email,
     });
 
     // Store refresh token
-    await userRepository.updateRefreshToken(user._id.toString(), refreshToken);
+    await userRepository.updateRefreshToken((user as any)._id.toString(), refreshToken);
 
     // Build user response without password
     const userResponse: IUser = {
-      id: user._id.toString(),
+      id: (user as any)._id.toString(),
       ...user.toObject(),
     };
     delete (userResponse as any).password;
@@ -198,7 +198,7 @@ export class AuthService {
     }
 
     // Update user as verified and clear token
-    await userRepository.update(user._id!.toString(), {
+    await userRepository.update((user as any)._id!.toString(), {
       emailVerified: true,
       emailVerificationToken: undefined,
     });
@@ -223,7 +223,7 @@ export class AuthService {
     const emailVerificationToken = crypto.randomBytes(32).toString('hex');
 
     // Update user with new token
-    await userRepository.update(user._id!.toString(), {
+    await userRepository.update((user as any)._id!.toString(), {
       emailVerificationToken,
     });
 

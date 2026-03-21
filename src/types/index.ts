@@ -1,4 +1,5 @@
 import { Request } from "express";
+import mongoose from "mongoose";
 
 /**
  * Authenticated Request with user data
@@ -10,6 +11,10 @@ export interface AuthenticatedRequest extends Request {
     email: string;
     name: string;
   };
+  cookies: any;
+  params: any;
+  query: any;
+  body: any;
 }
 
 /**
@@ -50,6 +55,7 @@ export interface PaginatedResponse<T> {
  * User Entity
  */
 export interface IUser {
+  id?: string;
   name: string;
   email: string;
   password: string;
@@ -80,7 +86,7 @@ export interface ISubscription {
     | "other";
   status: "active" | "cancelled" | "paused";
   autoRenew: boolean;
-  userId: string;
+  userId: string | mongoose.Types.ObjectId;
   startDate: Date;
   cancelledAt?: Date;
   createdAt?: Date;

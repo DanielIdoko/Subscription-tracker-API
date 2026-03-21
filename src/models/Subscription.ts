@@ -79,7 +79,6 @@ subscriptionSchema.pre("save", function (next) {
   if (this.isNew) {
     console.log(`[Subscription] New subscription created: ${this.name} by user ${this.userId?.toString()}`);
   }
-  next();
 });
 
 export const Subscription = mongoose.model<ISubscriptionDocument>(

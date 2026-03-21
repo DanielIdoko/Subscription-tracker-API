@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { userController } from "../controllers/UserController.ts";
-import { authenticate, asyncHandler } from "../middlewares/index.ts";
-import { apiLimiter } from "../middlewares/rateLimiter.ts";
-import { AuthenticatedRequest } from "../types/index.ts";
+import { userController } from "../controllers/UserController";
+import { authenticate, asyncHandler } from "../middlewares/index";
+import { apiLimiter } from "../middlewares/rateLimiter";
+import { AuthenticatedRequest } from "../types/index";
 
 const router = Router();
 

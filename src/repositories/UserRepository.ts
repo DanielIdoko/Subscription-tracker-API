@@ -1,6 +1,6 @@
-import { User } from "../models/User.ts";
-import { IUser } from "../types/index.ts";
-import { NotFoundError, ConflictError } from "../errors/AppError.ts";
+import { User } from "../models/User";
+import { IUser } from "../types/index";
+import { NotFoundError, ConflictError } from "../errors/AppError";
 
 /**
  * User Repository

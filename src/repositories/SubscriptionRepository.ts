@@ -1,6 +1,6 @@
-import { Subscription } from "../models/Subscription.ts";
-import { ISubscription, QueryOptions } from "../types/index.ts";
-import { NotFoundError } from "../errors/AppError.ts";
+import { Subscription } from "../models/Subscription";
+import { ISubscription, QueryOptions } from "../types/index";
+import { NotFoundError } from "../errors/AppError";
 import mongoose from "mongoose";
 
 /**

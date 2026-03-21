@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import { JWTPayload } from "../types/index.ts";
-import { AuthenticationError } from "../errors/AppError.ts";
+import { JWTPayload } from "../types/index";
+import { AuthenticationError } from "../errors/AppError";
 
 const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
 const JWT_REFRESH_SECRET =

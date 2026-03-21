@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import { AuthenticatedRequest } from "../types/index.ts";
-import { verifyToken, extractTokenFromHeader } from "../utils/jwt.ts";
-import { AuthenticationError } from "../errors/AppError.ts";
+import { AuthenticatedRequest } from "../types/index";
+import { verifyToken, extractTokenFromHeader } from "../utils/jwt";
+import { AuthenticationError } from "../errors/AppError";
 
 /**
  * Authentication Middleware

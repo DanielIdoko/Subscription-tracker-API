@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose";
-import { IUser } from "../types/index.ts";
-import { comparePassword } from "../utils/password.ts";
+import { IUser } from "../types/index";
+import { comparePassword } from "../utils/password";
 
 interface IUserDocument extends IUser, Document {
   comparePassword(password: string): Promise<boolean>;

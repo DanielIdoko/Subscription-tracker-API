@@ -1,10 +1,10 @@
 import { Response } from "express";
-import { AuthenticatedRequest } from "../types/index.ts";
-import { userService } from "../services/UserService.ts";
-import { UpdateUserSchema } from "../dtos/user.dto.ts";
-import { sendSuccess, sendError } from "../utils/response.ts";
-import { MESSAGES } from "../constants/index.ts";
-import { ValidationError } from "../errors/AppError.ts";
+import { AuthenticatedRequest } from "../types/index";
+import { userService } from "../services/UserService";
+import { UpdateUserSchema } from "../dtos/user.dto";
+import { sendSuccess, sendError } from "../utils/response";
+import { MESSAGES } from "../constants/index";
+import { ValidationError } from "../errors/AppError";
 
 /**
  * User Controller

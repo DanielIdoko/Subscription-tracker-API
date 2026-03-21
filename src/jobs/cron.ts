@@ -1,6 +1,6 @@
 import cron from "node-cron";
-import { subscriptionRepository } from "../repositories/SubscriptionRepository.ts";
-import { CRON_TIMING } from "../constants/index.ts";
+import { subscriptionRepository } from "../repositories/SubscriptionRepository";
+import { CRON_TIMING } from "../constants/index";
 
 /**
  * Cron Job: Check for upcoming subscription renewals
@@ -53,7 +53,7 @@ export const setupNotificationJob = (): void => {
 
     try {
       // Import notification service dynamically to avoid circular dependencies
-      const { notificationService } = await import("../services/NotificationService.ts");
+      const { notificationService } = await import("../services/NotificationService");
 
       await notificationService.sendBatchRenewalNotifications();
 

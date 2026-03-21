@@ -112,7 +112,7 @@ const apiV1 = express.Router();
 apiV1.use(connectDBMiddleware);
 
 app.use("/api/v1", apiV1);
-apiV1.use("/", (req, res) => res.json({ message: "api/v1 running" }));
+// apiV1.use("/", (req, res) => res.json({ message: "api/v1 running" }));
 apiV1.use("/auth", authRoutes);
 apiV1.use("/users", userRoutes);
 apiV1.use("/subscriptions", subscriptionRoutes);

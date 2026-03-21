@@ -56,7 +56,6 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: (origin, callback) => {
-     
       if (!origin) return callback(null, true);
 
       if (allowedOrigins.includes(origin)) {
@@ -112,12 +111,11 @@ const apiV1 = express.Router();
 // Apply DB connection middleware to all API routes
 apiV1.use(connectDBMiddleware);
 
+app.use("/api/v1", apiV1);
 apiV1.use("/auth", authRoutes);
 apiV1.use("/users", userRoutes);
 apiV1.use("/subscriptions", subscriptionRoutes);
 apiV1.use("/dashboard", dashboardRoutes);
-
-app.use("/api/v1", apiV1);
 
 /**
  * ERROR HANDLING

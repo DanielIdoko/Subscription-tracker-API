@@ -22,7 +22,11 @@ const app: Application = express();
  */
 let isConnected = false;
 
-const connectDBMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+const connectDBMiddleware = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     if (!isConnected) {
       console.log("[DB] Connecting...");
@@ -33,31 +37,43 @@ const connectDBMiddleware = async (req: Request, res: Response, next: NextFuncti
     next();
   } catch (error) {
     console.error("[DB ERROR]", error);
-    res.status(500).json({ success: false, message: "Database connection failed" });
+    res
+      .status(500)
+      .json({ success: false, message: "Database connection failed" });
   }
 };
 
 /**
  * MIDDLEWARES
  */
-// 1. Security & CORS first
+
+// CORS
 const allowedOrigins = [
   "http://localhost:5173",
   "https://managel-app.vercel.app",
 ];
 
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-}));
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // If there's no origin (like a mobile app or Postman), allow it
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        // Log this to see what origin is actually trying to connect
+        console.error(`CORS Error: Origin ${origin} not allowed`);
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  }),
+);
 
 // 2. Parsers & Logging
 app.use(express.json());
@@ -77,7 +93,7 @@ app.get("/health", connectDBMiddleware, (_req: Request, res: Response) => {
     success: true,
     message: "Server is running",
     timestamp: new Date().toISOString(),
-    dbConnected: isConnected
+    dbConnected: isConnected,
   });
 });
 
@@ -107,7 +123,6 @@ app.use("/api/v1", apiV1);
  */
 app.use(notFoundHandler);
 app.use(errorHandler);
-
 
 export default app;
 // Minimal strip

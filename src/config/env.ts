@@ -6,6 +6,8 @@ const requiredEnvVars = ["MONGODB_URI", "JWT_SECRET"];
 
 for (const envVar of requiredEnvVars) {
   if (!process.env[envVar]) {
+    console.error(`Missing required environment variable: ${envVar}`);
+    // In serverless environments, throw error to fail fast
     throw new Error(`Missing required environment variable: ${envVar}`);
   }
 }

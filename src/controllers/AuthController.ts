@@ -1,10 +1,10 @@
 import { Response } from "express";
-import { AuthenticatedRequest } from "../types/index.ts";
-import { authService } from "../services/AuthService.ts";
-import { RegisterUserSchema, LoginUserSchema, RefreshTokenSchema } from "../dtos/user.dto.ts";
-import { sendSuccess, sendError } from "../utils/response.ts";
-import { MESSAGES } from "../constants/index.ts";
-import { ValidationError } from "../errors/AppError.ts";
+import { AuthenticatedRequest } from "../types/index";
+import { authService } from "../services/AuthService";
+import { RegisterUserSchema, LoginUserSchema, RefreshTokenSchema } from "../dtos/user.dto";
+import { sendSuccess, sendError } from "../utils/response";
+import { MESSAGES } from "../constants/index";
+import { ValidationError } from "../errors/AppError";
 
 /**
  * Auth Controller

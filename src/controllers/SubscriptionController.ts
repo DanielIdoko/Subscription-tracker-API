@@ -1,20 +1,20 @@
 import { Response } from "express";
-import { AuthenticatedRequest } from "../types/index.ts";
-import { subscriptionService } from "../services/SubscriptionService.ts";
+import { AuthenticatedRequest } from "../types/index";
+import { subscriptionService } from "../services/SubscriptionService";
 import {
   CreateSubscriptionSchema,
   UpdateSubscriptionSchema,
-} from "../dtos/subscription.dto.ts";
+} from "../dtos/subscription.dto";
 import {
   sendSuccess,
   sendError,
   sendPaginated,
   calculatePagination,
-} from "../utils/response.ts";
-import { MESSAGES } from "../constants/index.ts";
-import { ValidationError } from "../errors/AppError.ts";
-import { parsePagination, parseSort } from "../utils/validation.ts";
-import { DEFAULT_PAGE, DEFAULT_LIMIT, MAX_LIMIT } from "../constants/index.ts";
+} from "../utils/response";
+import { MESSAGES } from "../constants/index";
+import { ValidationError } from "../errors/AppError";
+import { parsePagination, parseSort } from "../utils/validation";
+import { DEFAULT_PAGE, DEFAULT_LIMIT, MAX_LIMIT } from "../constants/index";
 
 /**
  * Subscription Controller

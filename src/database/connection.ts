@@ -1,5 +1,4 @@
-import dns from 'dns';
-dns.setServers(['8.8.8.8', '1.1.1.1']); 
+
 import mongoose from "mongoose";
 import { config } from "../config/env.ts";
 
@@ -8,8 +7,18 @@ import { config } from "../config/env.ts";
  */
 export const connectDatabase = async (): Promise<void> => {
   try {
+    if (mongoose.connection.readyState >= 1) {
+      console.log("Database already connected");
+      return;
+    }
+
     await mongoose.connect(config.MONGODB_URI!, {
       serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
+      maxPoolSize: 10,
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
+      family: 4
     });
 
     console.log("Database connected successfully");
@@ -24,7 +33,7 @@ export const connectDatabase = async (): Promise<void> => {
     });
   } catch (error) {
     console.error("✗ Database connection failed:", error);
-    process.exit(1);
+    throw error; // Re-throw to fail the function
   }
 };
 

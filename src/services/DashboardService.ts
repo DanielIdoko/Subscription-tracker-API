@@ -1,5 +1,5 @@
-import { subscriptionRepository } from "../repositories/SubscriptionRepository.ts";
-import { DashboardStats } from "../types/index.ts";
+import { subscriptionRepository } from "../repositories/SubscriptionRepository";
+import { DashboardStats } from "../types/index";
 
 /**
  * Dashboard Service

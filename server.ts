@@ -23,10 +23,15 @@ const app: Application = express();
 let isConnected = false;
 
 const connectDBOnce = async () => {
-  if (!isConnected) {
-    await connectDatabase();
-    isConnected = true;
-    console.log("[DB] Connected");
+  try {
+    if (!isConnected) {
+      await connectDatabase();
+      isConnected = true;
+      console.log("[DB] Connected successfully");
+    }
+  } catch (error) {
+    console.error("[DB] Connection failed:", error);
+    throw error;
   }
 };
 
@@ -80,5 +85,14 @@ app.use("/api/v1", async (req, res, next) => {
  */
 app.use(notFoundHandler);
 app.use(errorHandler as any);
+
+// Global error handlers for serverless environment
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
 
 export default app;

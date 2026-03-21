@@ -1,11 +1,11 @@
 {
-  "name": "bun_app",
-  "module": "server.ts",
+  "name": "subscription-api",
+  "main": "dist/server.js",
   "type": "commonjs",
   "private": true,
   "scripts": {
     "dev": "bun server.ts",
-    "start": "node server.ts",
+    "start": "node dist/server.js",
     "seed": "ts-node scripts/seed.ts",
     "build": "tsc"
   },

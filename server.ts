@@ -41,17 +41,36 @@ const connectDBOnce = async () => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+// CORS
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://managel-app.vercel.app",
+];
+
 app.use(
   cors({
-    origin: "https://managel-app.vercel.app/",
-    methods: ["GET", "POST", "PUT", "PATCH", "OPTIONS"],
-    allowedHeaders: "*",
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
+
 app.use(morgan("combined"));
 
 applySecurityMiddlewares(app);
 app.use(globalLimiter);
+
+app.options("*", cors());
 
 /**
  * ROUTES
@@ -73,6 +92,7 @@ app.get("/", (_req: Request, res: Response) => {
     version: "1.0.1",
   });
 });
+
 
 const apiV1 = express.Router();
 

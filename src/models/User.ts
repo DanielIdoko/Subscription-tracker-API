@@ -1,5 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose";
 import { IUser } from "../types/index.ts";
+import { comparePassword } from "../utils/password.ts";
 
 interface IUserDocument extends IUser, Document {
   comparePassword(password: string): Promise<boolean>;
@@ -50,5 +51,10 @@ const userSchema = new Schema<IUserDocument>(
 // Index for faster queries
 // userSchema.index({ email: 1 });
 userSchema.index({ createdAt: -1 });
+
+// Add comparePassword method
+userSchema.methods.comparePassword = async function (password: string): Promise<boolean> {
+  return comparePassword(password, this.password);
+};
 
 export const User = mongoose.model<IUserDocument>("User", userSchema);

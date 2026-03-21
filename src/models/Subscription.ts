@@ -75,10 +75,11 @@ subscriptionSchema.index({ userId: 1, category: 1 });
 subscriptionSchema.index({ userId: 1, createdAt: -1 });
 
 // Pre-save middleware to log subscription creation
-subscriptionSchema.pre("save", function (next) {
+subscriptionSchema.pre("save", function (this: ISubscriptionDocument, next) {
   if (this.isNew) {
     console.log(`[Subscription] New subscription created: ${this.name} by user ${this.userId?.toString()}`);
   }
+  next();
 });
 
 export const Subscription = mongoose.model<ISubscriptionDocument>(

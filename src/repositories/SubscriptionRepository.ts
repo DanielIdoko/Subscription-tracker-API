@@ -65,28 +65,6 @@ export class SubscriptionRepository {
   }
 
   /**
-   * Find subscriptions with upcoming renewals
-   */
-  async findUpcomingRenewals(
-    userId: string,
-    daysAhead: number = 7,
-  ): Promise<ISubscription[]> {
-    const now = new Date();
-    const futureDate = new Date(now.getTime() + daysAhead * 24 * 60 * 60 * 1000);
-
-    const subscriptions = await Subscription.find({
-      userId,
-      status: "active",
-      nextBillingDate: {
-        $gte: now,
-        $lte: futureDate,
-      },
-    }).lean();
-
-    return subscriptions;
-  }
-
-  /**
    * Update subscription
    */
   async update(id: string, updateData: Partial<ISubscription>): Promise<ISubscription> {

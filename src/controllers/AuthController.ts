@@ -20,7 +20,7 @@ export class AuthController {
       // Validate input
       const validation = RegisterUserSchema.safeParse(req.body);
       if (!validation.success) {
-        throw new ValidationError(validation.error.issues[0].message);
+        throw new ValidationError(validation.error.issues?.[0]?.message || "Validation failed");
       }
 
       // Call service
@@ -52,7 +52,7 @@ export class AuthController {
       // Validate input
       const validation = LoginUserSchema.safeParse(req.body);
       if (!validation.success) {
-        throw new ValidationError(validation.error.issues[0].message);
+        throw new ValidationError(validation.error.issues?.[0]?.message || "Validation failed");
       }
 
       // Call service
@@ -88,7 +88,7 @@ export class AuthController {
       // Validate input
       const validation = RefreshTokenSchema.safeParse({ refreshToken });
       if (!validation.success) {
-        throw new ValidationError(validation.error.issues[0].message);
+        throw new ValidationError(validation.error.issues?.[0]?.message || "Validation failed");
       }
 
       // Call service

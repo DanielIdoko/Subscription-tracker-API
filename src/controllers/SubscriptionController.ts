@@ -39,7 +39,7 @@ export class SubscriptionController {
 
       // Call service
       const subscription = await subscriptionService.createSubscription(
-        req.userId,
+        req.userId!,
         validation.data,
       );
 
@@ -63,8 +63,8 @@ export class SubscriptionController {
 
       const { id } = req.params;
       const subscription = await subscriptionService.getSubscription(
-        id!,
-        req.userId,
+        id,
+        req.userId!,
       );
 
       sendSuccess(res, 200, MESSAGES.SUBSCRIPTION_RETRIEVED, subscription);
@@ -85,16 +85,20 @@ export class SubscriptionController {
 
       // Parse pagination
       const { page: pageStr, limit: limitStr, sortBy, sortOrder } = req.query;
+      const pageValue = Array.isArray(pageStr) ? pageStr[0] : pageStr;
+      const limitValue = Array.isArray(limitStr) ? limitStr[0] : limitStr;
+      const sortByValue = Array.isArray(sortBy) ? sortBy[0] : sortBy;
+      const sortOrderValue = Array.isArray(sortOrder) ? sortOrder[0] : sortOrder;
       const { page, limit } = parsePagination(
-        pageStr!,
-        limitStr,
+        pageValue,
+        limitValue,
         DEFAULT_PAGE,
         DEFAULT_LIMIT,
         MAX_LIMIT,
       );
       const { sortBy: sort, sortOrder: order } = parseSort(
-        sortBy as string,
-        sortOrder as string,
+        sortByValue,
+        sortOrderValue,
       );
 
       // Parse filters
@@ -108,7 +112,7 @@ export class SubscriptionController {
 
       // Get subscriptions
       const result = await subscriptionService.getUserSubscriptions(
-        req.userId,
+        req.userId!,
         {
           page,
           limit,
@@ -143,7 +147,7 @@ export class SubscriptionController {
       }
 
       const subscriptions = await subscriptionService.getActiveSubscriptions(
-        req.userId,
+        req.userId!,
       );
 
       sendSuccess(
@@ -175,7 +179,7 @@ export class SubscriptionController {
         : 7;
 
       const subscriptions = await subscriptionService.getUpcomingRenewals(
-        req.userId,
+        req.userId!,
         daysAhead,
       );
 
@@ -205,13 +209,13 @@ export class SubscriptionController {
       // Validate input
       const validation = UpdateSubscriptionSchema.safeParse(req.body);
       if (!validation.success) {
-        throw new ValidationError(validation.error.errors[0].message);
+        throw new ValidationError(validation.error.issues?.[0]?.message || "Validation failed");
       }
 
       // Call service
       const subscription = await subscriptionService.updateSubscription(
         id,
-        req.userId,
+        req.userId!,
         validation.data,
       );
 
@@ -234,7 +238,7 @@ export class SubscriptionController {
       const { id } = req.params;
       const subscription = await subscriptionService.cancelSubscription(
         id,
-        req.userId,
+        req.userId!,
       );
 
       sendSuccess(
@@ -261,7 +265,7 @@ export class SubscriptionController {
       const { id } = req.params;
       const subscription = await subscriptionService.pauseSubscription(
         id,
-        req.userId,
+        req.userId!,
       );
 
       sendSuccess(res, 200, "Subscription paused successfully", subscription);
@@ -283,7 +287,7 @@ export class SubscriptionController {
       const { id } = req.params;
       const subscription = await subscriptionService.resumeSubscription(
         id,
-        req.userId,
+        req.userId!,
       );
 
       sendSuccess(res, 200, "Subscription resumed successfully", subscription);
@@ -303,7 +307,7 @@ export class SubscriptionController {
       }
 
       const { id } = req.params;
-      await subscriptionService.deleteSubscription(id, req.userId);
+      await subscriptionService.deleteSubscription(id, req.userId!);
 
       sendSuccess(res, 200, MESSAGES.SUBSCRIPTION_DELETED);
     } catch (error: any) {

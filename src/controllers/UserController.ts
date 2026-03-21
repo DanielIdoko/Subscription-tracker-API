@@ -41,7 +41,7 @@ export class UserController {
       // Validate input
       const validation = UpdateUserSchema.safeParse(req.body);
       if (!validation.success) {
-        throw new ValidationError(validation.error.errors[0].message);
+        throw new ValidationError(validation.error.issues?.[0]?.message || "Validation failed");
       }
 
       const user = await userService.updateProfile(req.userId, validation.data);

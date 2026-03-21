@@ -24,7 +24,7 @@ export class AuthService {
    * Register a new user
    */
   async register(input: RegisterUserInput): Promise<{
-    user: IUser;
+    user: Omit<IUser, 'password'>;
     accessToken: string;
     refreshToken: string;
   }> {
@@ -88,7 +88,7 @@ export class AuthService {
    * Login user
    */
   async login(input: LoginUserInput): Promise<{
-    user: IUser;
+    user: Omit<IUser, 'password'>;
     accessToken: string;
     refreshToken: string;
   }> {

@@ -50,8 +50,6 @@ export interface PaginatedResponse<T> {
  * User Entity
  */
 export interface IUser {
-  _id?: string;
-  id?: string;
   name: string;
   email: string;
   password: string;
@@ -66,7 +64,6 @@ export interface IUser {
  * Subscription Entity
  */
 export interface ISubscription {
-  _id?: string;
   name: string;
   price: number;
   currency: string;

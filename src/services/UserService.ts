@@ -12,7 +12,7 @@ export class UserService {
   /**
    * Get user profile
    */
-  async getProfile(userId: string): Promise<IUser> {
+  async getProfile(userId: string): Promise<Omit<IUser, 'password'>> {
     const user = await userRepository.findById(userId);
     // Remove sensitive data
     const { password, ...userWithoutPassword } = user;
@@ -22,7 +22,7 @@ export class UserService {
   /**
    * Update user profile
    */
-  async updateProfile(userId: string, input: UpdateUserInput): Promise<IUser> {
+  async updateProfile(userId: string, input: UpdateUserInput): Promise<Omit<IUser, 'password'>> {
     const user = await userRepository.update(userId, input);
     // Remove sensitive data
     const { password, ...userWithoutPassword } = user;

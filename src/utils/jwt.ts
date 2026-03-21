@@ -13,7 +13,7 @@ const JWT_REFRESH_EXPIRES_IN =
  * Generate JWT Token
  */
 export const generateToken = (payload: JWTPayload): string => {
-  return jwt.sign(payload, JWT_SECRET, {
+  return jwt.sign(payload, JWT_SECRET as string, {
     expiresIn: JWT_EXPIRES_IN,
   });
 };
@@ -22,7 +22,7 @@ export const generateToken = (payload: JWTPayload): string => {
  * Generate Refresh Token
  */
 export const generateRefreshToken = (payload: JWTPayload): string => {
-  return jwt.sign(payload, JWT_REFRESH_SECRET, {
+  return jwt.sign(payload, JWT_REFRESH_SECRET as string, {
     expiresIn: JWT_REFRESH_EXPIRES_IN,
   });
 };

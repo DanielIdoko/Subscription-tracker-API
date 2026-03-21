@@ -88,13 +88,11 @@ export const parsePagination = (
 export const parseSort = (
   sortBy?: string,
   sortOrder?: string,
-): { sortBy: string; sortOrder: 1 | -1 } => {
+): { sortBy: string; sortOrder: "asc" | "desc" } => {
   const validOrder =
     sortOrder && (sortOrder === "asc" || sortOrder === "desc")
-      ? sortOrder === "asc"
-        ? 1
-        : -1
-      : -1;
+      ? sortOrder
+      : "desc";
 
   return {
     sortBy: sortBy || "createdAt",

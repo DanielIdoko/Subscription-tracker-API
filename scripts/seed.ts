@@ -38,6 +38,10 @@ const seedData = async (): Promise<void> => {
 
     console.log(`[Seed] Created ${users.length} users`);
 
+    if (users.length < 3) {
+      throw new Error("Failed to create all users");
+    }
+
     // Create test subscriptions
     console.log("[Seed] Creating test subscriptions...");
 
@@ -56,7 +60,7 @@ const seedData = async (): Promise<void> => {
         category: "entertainment",
         status: "active",
         autoRenew: true,
-        userId: users[0]!._id,
+        userId: users[0]._id,
         startDate: now,
       },
       {
@@ -68,7 +72,7 @@ const seedData = async (): Promise<void> => {
         category: "entertainment",
         status: "active",
         autoRenew: true,
-        userId: users[0]!._id,
+        userId: users[0]._id,
         startDate: now,
       },
       {
@@ -80,7 +84,7 @@ const seedData = async (): Promise<void> => {
         category: "productivity",
         status: "active",
         autoRenew: true,
-        userId: users[0]!._id,
+        userId: users[0]._id,
         startDate: now,
       },
       {
@@ -92,7 +96,7 @@ const seedData = async (): Promise<void> => {
         category: "productivity",
         status: "active",
         autoRenew: true,
-        userId: users[0]!._id,
+        userId: users[0]._id,
         startDate: now,
       },
 

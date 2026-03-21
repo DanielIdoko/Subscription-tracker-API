@@ -46,7 +46,12 @@ const connectDBMiddleware = async (
 /**
  * MIDDLEWARES
  */
-app.use(cors())
+app.use(
+  cors({
+    origin: ["http://managel-app.vercel.app", "https://managel-app.vercel.app"],
+    methods: ["GET", "POST", "PUT", "OPTIONS", "PATCH"],
+  }),
+);
 
 // 2. Parsers & Logging
 app.use(express.json());

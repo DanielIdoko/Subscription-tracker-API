@@ -1,3 +1,6 @@
+import dns from "dns";
+dns.setServers(["1.1.1.1", "8.8.8.8"]);
+
 import express, { Application, Request, Response, NextFunction } from "express";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
@@ -71,7 +74,7 @@ app.use(
 );
 
 // 2. Parsers & Logging
-app.use(express.json());
+app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
@@ -82,7 +85,7 @@ app.use(
 // Logging
 app.use(morgan("dev"));
 
-applySecurityMiddlewares(app);
+// applySecurityMiddlewares(app);
 
 /**
  * ROUTES
@@ -107,7 +110,6 @@ app.get("/", async (_req: Request, res: Response) => {
   });
 });
 
-
 // Apply DB connection middleware to all API routes
 // apiV1.use(connectDBMiddleware);
 
@@ -125,8 +127,15 @@ app.use("/api/v1/dashboard", dashboardRoutes);
 app.use(notFoundHandler);
 app.use(errorHandler);
 
-
 export default app;
+
+if (process.env.NODE_ENV === "development") {
+  app.listen(process.env.PORT, async () => {
+    await connectDatabase();
+    console.log(`Server running on http://localhost:${process.env.PORT}`);
+  });
+}
+
 // Minimal strip
 // import express from "express";
 

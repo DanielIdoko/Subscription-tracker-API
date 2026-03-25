@@ -21,28 +21,28 @@ const app: Application = express();
 /**
  * DATABASE CONNECTION (Serverless Optimized)
  */
-let isConnected = false;
+// let isConnected = false;
 
-const connectDBMiddleware = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  try {
-    if (!isConnected) {
-      console.log("[DB] Connecting...");
-      await connectDatabase();
-      isConnected = true;
-      console.log("[DB] Connected");
-    }
-    next();
-  } catch (error) {
-    console.error("[DB ERROR]", error);
-    res
-      .status(500)
-      .json({ success: false, message: "Database connection failed" });
-  }
-};
+// const connectDBMiddleware = async (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction,
+// ) => {
+//   try {
+//     if (!isConnected) {
+//       console.log("[DB] Connecting...");
+//       await connectDatabase();
+//       isConnected = true;
+//       console.log("[DB] Connected");
+//     }
+//     next();
+//   } catch (error) {
+//     console.error("[DB ERROR]", error);
+//     res
+//       .status(500)
+//       .json({ success: false, message: "Database connection failed" });
+//   }
+// };
 
 /**
  * MIDDLEWARES
@@ -50,12 +50,12 @@ const connectDBMiddleware = async (
 const allowedOrigins = [
   process.env.CORS_ORIGIN,
   "http://managel-app.vercel.app",
-  // "http://localhost:5173",
+  "http://localhost:5173",
 ];
 
 app.use(
   cors({
-    origin: (origin, callback) => {
+    origin: (origin = process.env.CORS_ORIGIN, callback) => {
       if (!origin) return callback(null, true);
 
       if (allowedOrigins.includes(origin)) {
@@ -79,50 +79,52 @@ app.use(
     crossOriginResourcePolicy: { policy: "cross-origin" },
   }),
 );
-app.use(morgan("dev")); // 'dev' is often cleaner for logs than 'combined'
+// Logging
+app.use(morgan("dev"));
 
 applySecurityMiddlewares(app);
-// Move rate limiter AFTER static/health checks if you want to save quota
-app.use(globalLimiter);
 
 /**
  * ROUTES
  */
-app.get("/health", connectDBMiddleware, (_req: Request, res: Response) => {
+app.get("/health", (_req: Request, res: Response) => {
   res.status(200).json({
     success: true,
     message: "Server is running",
     timestamp: new Date().toISOString(),
-    dbConnected: isConnected,
+    // dbConnected: isConnected,
   });
 });
 
-app.get("/", (_req: Request, res: Response) => {
+app.use(globalLimiter);
+
+app.get("/", async (_req: Request, res: Response) => {
+  await connectDatabase();
   res.status(200).json({
     success: true,
-    message: "Managel API",
-    version: "1.0.1",
+    message: "Managel API running successfully ",
+    version: "1.0.0",
   });
 });
 
-// API v1 Router
-const apiV1 = express.Router();
 
 // Apply DB connection middleware to all API routes
-apiV1.use(connectDBMiddleware);
+// apiV1.use(connectDBMiddleware);
 
-app.use("/api/v1", apiV1);
-// apiV1.use("/", (req, res) => res.json({ message: "api/v1 running" }));
-apiV1.use("/auth", authRoutes);
-apiV1.use("/users", userRoutes);
-apiV1.use("/subscriptions", subscriptionRoutes);
-apiV1.use("/dashboard", dashboardRoutes);
+/**
+ * API ROUTES
+ */
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/subscriptions", subscriptionRoutes);
+app.use("/api/v1/dashboard", dashboardRoutes);
 
 /**
  * ERROR HANDLING
  */
 app.use(notFoundHandler);
 app.use(errorHandler);
+
 
 export default app;
 // Minimal strip

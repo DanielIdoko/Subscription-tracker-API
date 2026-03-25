@@ -78,15 +78,15 @@ app.use(
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(
-  helmet({
-    crossOriginResourcePolicy: { policy: "cross-origin" },
-  }),
-);
+// app.use(
+//   helmet({
+//     crossOriginResourcePolicy: { policy: "cross-origin" },
+//   }),
+// );
 // Logging
 app.use(morgan("dev"));
 
-// applySecurityMiddlewares(app);
+app.use(globalLimiter);
 
 /**
  * ROUTES
@@ -94,13 +94,20 @@ app.use(morgan("dev"));
 app.get("/health", (_req: Request, res: Response) => {
   res.status(200).json({
     success: true,
-    message: "Server is running",
+    message: "Server health OK!",
     timestamp: new Date().toISOString(),
     // dbConnected: isConnected,
   });
 });
 
-app.use(globalLimiter);
+app.get("/api/v1/", (_req: Request, res: Response) => {
+  res.status(200).json({
+    success: true,
+    message: "API test ran successfully",
+    timestamp: new Date().toISOString(),
+  });
+});
+
 
 app.get("/", async (_req: Request, res: Response) => {
   await connectDatabase();

@@ -26,6 +26,7 @@ export const authLimiter = rateLimit({
   message: "Too many authentication attempts, please try again later.",
   standardHeaders: true,
   legacyHeaders: false,
+  validate: { xForwardedForHeader: false },
   skipSuccessfulRequests: true,
 });
 
@@ -38,4 +39,5 @@ export const apiLimiter = rateLimit({
   message: "Too many API requests, please try again later.",
   standardHeaders: true,
   legacyHeaders: false,
+  skipSuccessfulRequests: true,
 });

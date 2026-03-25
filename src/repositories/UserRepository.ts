@@ -43,10 +43,10 @@ export class UserRepository {
   }
 
   /**
-   * Find user by email with password (for login)
+   * Find user by email with password
    */
   async findByEmailWithPassword(email: string): Promise<any> {
-    const user = await User.findOne({ email }).select("+password +refreshToken");
+    const user = await User.findOne({ email }).lean();
     return user;
   }
 

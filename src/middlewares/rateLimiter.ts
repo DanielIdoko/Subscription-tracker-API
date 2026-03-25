@@ -14,6 +14,7 @@ export const globalLimiter = rateLimit({
     // Skip rate limiting in development
     return config.NODE_ENV === "development";
   },
+  validate: { xForwardedForHeader: false },
 });
 
 /**

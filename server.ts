@@ -58,7 +58,7 @@ const allowedOrigins = [
 
 app.use(
   cors({
-    origin: "https://managel-app.vercel.app",
+    origin: ["https://managel-app.vercel.app", 'http://localhost:5173'],
     // origin: (origin = process.env.CORS_ORIGIN, callback) => {
     //   if (!origin) return callback(null, true);
 
@@ -79,11 +79,6 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// app.use(
-//   helmet({
-//     crossOriginResourcePolicy: { policy: "cross-origin" },
-//   }),
-// );
 // Logging
 
 app.use(morgan("dev"));
@@ -93,12 +88,13 @@ app.use(globalLimiter);
 /**
  * ROUTES
  */
+let isConnected = false;
+
 app.get("/health", (_req: Request, res: Response) => {
   res.status(200).json({
     success: true,
     message: "Server health OK!",
     timestamp: new Date().toISOString(),
-    // dbConnected: isConnected,
   });
 });
 
@@ -110,13 +106,14 @@ app.get("/api/v1/", (_req: Request, res: Response) => {
   });
 });
 
-
 app.get("/", async (_req: Request, res: Response) => {
   await connectDatabase();
+  isConnected = true;
   res.status(200).json({
     success: true,
     message: "Managel API running successfully ",
     version: "1.0.0",
+    dbConnected: isConnected,
   });
 });
 

@@ -55,7 +55,7 @@ export class UserRepository {
    */
   async update(id: string, updateData: Partial<IUser>): Promise<IUser> {
     const user = await User.findByIdAndUpdate(id, updateData, {
-      new: true,
+      returnDocument: 'after',
       runValidators: true,
     }).lean();
 
@@ -70,7 +70,7 @@ export class UserRepository {
    * Update refresh token
    */
   async updateRefreshToken(id: string, refreshToken: string | null): Promise<void> {
-    await User.findByIdAndUpdate(id, { refreshToken }, { new: true });
+    await User.findByIdAndUpdate(id, { refreshToken }, { returnDocument: 'after' });
   }
 
   /**

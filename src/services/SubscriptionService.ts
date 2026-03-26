@@ -21,7 +21,12 @@ export class SubscriptionService {
     input: CreateSubscriptionInput,
   ): Promise<ISubscription> {
     // Calculate next billing date if not provided
-    const nextBillingDate = input.nextBillingDate || new Date(Date.now() + (input.billingCycle === 'monthly' ? 30 : 365) * 24 * 60 * 60 * 1000);
+    const nextBillingDate =
+      input.nextBillingDate ||
+      new Date(
+        Date.now() +
+          (input.billingCycle === "monthly" ? 30 : 365) * 24 * 60 * 60 * 1000,
+      );
 
     // Add userId to subscription data
     const subscriptionData: Partial<ISubscription> = {
@@ -34,15 +39,16 @@ export class SubscriptionService {
     const subscription = await subscriptionRepository.create(subscriptionData);
 
     // Send notification
-    await notificationService.sendSubscriptionCreated(
-      userId,
-      subscription.name,
-      subscription.price,
-    );
+      // await notificationService.sendSubscriptionCreated(
+      //   userId,
+      //   subscription.name,
+      //   subscription.price,
+      // );
 
-    console.log(
-      `[Subscription] Created subscription for user ${userId}: ${subscription.name}`,
-    );
+    if (subscription)
+      console.log(
+        `[Subscription] Created subscription for user ${userId}: ${subscription.name}`,
+      );
 
     return subscription;
   }
@@ -50,7 +56,10 @@ export class SubscriptionService {
   /**
    * Get single subscription by ID
    */
-  async getSubscription(subscriptionId: string, userId: string): Promise<ISubscription> {
+  async getSubscription(
+    subscriptionId: string,
+    userId: string,
+  ): Promise<ISubscription> {
     const subscription = await subscriptionRepository.findById(subscriptionId);
 
     // Check if subscription belongs to user
@@ -81,7 +90,10 @@ export class SubscriptionService {
   /**
    * Get upcoming renewals
    */
-  async getUpcomingRenewals(userId: string, daysAhead?: number): Promise<ISubscription[]> {
+  async getUpcomingRenewals(
+    userId: string,
+    daysAhead?: number,
+  ): Promise<ISubscription[]> {
     return subscriptionRepository.findUpcomingRenewals(userId, daysAhead);
   }
 
@@ -113,7 +125,10 @@ export class SubscriptionService {
   /**
    * Cancel subscription
    */
-  async cancelSubscription(subscriptionId: string, userId: string): Promise<ISubscription> {
+  async cancelSubscription(
+    subscriptionId: string,
+    userId: string,
+  ): Promise<ISubscription> {
     const subscription = await subscriptionRepository.findById(subscriptionId);
 
     // Check if subscription belongs to user
@@ -140,7 +155,10 @@ export class SubscriptionService {
   /**
    * Pause subscription
    */
-  async pauseSubscription(subscriptionId: string, userId: string): Promise<ISubscription> {
+  async pauseSubscription(
+    subscriptionId: string,
+    userId: string,
+  ): Promise<ISubscription> {
     const subscription = await subscriptionRepository.findById(subscriptionId);
 
     // Check if subscription belongs to user
@@ -153,7 +171,9 @@ export class SubscriptionService {
       status: "paused",
     });
 
-    console.log(`[Subscription] Paused subscription for user ${userId}: ${updated.name}`);
+    console.log(
+      `[Subscription] Paused subscription for user ${userId}: ${updated.name}`,
+    );
 
     return updated;
   }
@@ -161,7 +181,10 @@ export class SubscriptionService {
   /**
    * Resume subscription
    */
-  async resumeSubscription(subscriptionId: string, userId: string): Promise<ISubscription> {
+  async resumeSubscription(
+    subscriptionId: string,
+    userId: string,
+  ): Promise<ISubscription> {
     const subscription = await subscriptionRepository.findById(subscriptionId);
 
     // Check if subscription belongs to user
@@ -184,7 +207,10 @@ export class SubscriptionService {
   /**
    * Delete subscription
    */
-  async deleteSubscription(subscriptionId: string, userId: string): Promise<void> {
+  async deleteSubscription(
+    subscriptionId: string,
+    userId: string,
+  ): Promise<void> {
     const subscription = await subscriptionRepository.findById(subscriptionId);
 
     // Check if subscription belongs to user
@@ -202,7 +228,10 @@ export class SubscriptionService {
   /**
    * Check if subscription belongs to user
    */
-  async verifyOwnership(subscriptionId: string, userId: string): Promise<boolean> {
+  async verifyOwnership(
+    subscriptionId: string,
+    userId: string,
+  ): Promise<boolean> {
     return subscriptionRepository.existsForUser(subscriptionId, userId);
   }
 }

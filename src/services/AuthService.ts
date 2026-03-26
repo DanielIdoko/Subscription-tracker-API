@@ -38,22 +38,22 @@ export class AuthService {
     const hashedPassword = await hashPassword(input.password);
 
     // Generate email verification token
-    const emailVerificationToken = crypto.randomBytes(32).toString('hex');
+    // const emailVerificationToken = crypto.randomBytes(32).toString('hex');
 
     // Create user
     const user = await userRepository.create({
       name: input.name,
       email: input.email,
       password: hashedPassword,
-      emailVerificationToken,
+      // emailVerificationToken,
     });
 
     // Send email verification
-    await notificationService.sendEmailVerification(
-      user.email,
-      user.name,
-      emailVerificationToken,
-    );
+    // await notificationService.sendEmailVerification(
+    //   user.email,
+    //   user.name,
+    //   emailVerificationToken,
+    // );
 
     // Generate tokens
     const accessToken = generateToken({

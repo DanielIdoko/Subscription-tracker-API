@@ -22,6 +22,7 @@ export class UserController {
       }
 
       const user = await userService.getProfile(req.userId);
+      console.log(user);
       sendSuccess(res, 200, MESSAGES.USER_PROFILE_RETRIEVED, user);
     } catch (error: any) {
       sendError(res, error.statusCode || 500, error.message);
@@ -41,7 +42,9 @@ export class UserController {
       // Validate input
       const validation = UpdateUserSchema.safeParse(req.body);
       if (!validation.success) {
-        throw new ValidationError(validation.error.issues?.[0]?.message || "Validation failed");
+        throw new ValidationError(
+          validation.error.issues?.[0]?.message || "Validation failed",
+        );
       }
 
       const user = await userService.updateProfile(req.userId, validation.data);

@@ -69,7 +69,7 @@ export class SubscriptionRepository {
    */
   async update(id: string, updateData: Partial<ISubscription>): Promise<ISubscription> {
     const subscription = await Subscription.findByIdAndUpdate(id, updateData, {
-      new: true,
+      returnDocument: 'after',
       runValidators: true,
     }).lean();
 

@@ -38,7 +38,7 @@ export class UserRepository {
    * Find user by email
    */
   async findByEmail(email: string): Promise<IUser | null> {
-    const user = await User.findOne({ email }).lean();
+    const user = await User.findOne({ email: email }).lean();
     return user;
   }
 
@@ -46,7 +46,7 @@ export class UserRepository {
    * Find user by email with password
    */
   async findByEmailWithPassword(email: string): Promise<any> {
-    const user = await User.findOne({ email }).lean();
+    const user = await User.findOne({ email: email });
     return user;
   }
 

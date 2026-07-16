@@ -21,31 +21,6 @@ import helmet from "helmet";
 
 const app: Application = express();
 
-/**
- * DATABASE CONNECTION (Serverless Optimized)
- */
-// let isConnected = false;
-
-// const connectDBMiddleware = async (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction,
-// ) => {
-//   try {
-//     if (!isConnected) {
-//       console.log("[DB] Connecting...");
-//       await connectDatabase();
-//       isConnected = true;
-//       console.log("[DB] Connected");
-//     }
-//     next();
-//   } catch (error) {
-//     console.error("[DB ERROR]", error);
-//     res
-//       .status(500)
-//       .json({ success: false, message: "Database connection failed" });
-//   }
-// };
 
 /**
  * MIDDLEWARES
@@ -58,16 +33,15 @@ const allowedOrigins = [
 
 app.use(
   cors({
-    origin: ["https://managel-app.vercel.app", "http://localhost:5173"],
-    // origin: (origin = process.env.CORS_ORIGIN, callback) => {
-    //   if (!origin) return callback(null, true);
+    origin: (origin = process.env.CORS_ORIGIN, callback) => {
+      if (!origin) return callback(null, true);
 
-    //   if (allowedOrigins.includes(origin)) {
-    //     callback(null, true);
-    //   } else {
-    //     callback(new Error("Not allowed by CORS"));
-    //   }
-    // },
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
     credentials: true,
@@ -142,14 +116,3 @@ app.listen(Number(process.env.PORT), '0.0.0.0', async () => {
   console.log(`Server running on http://localhost:${process.env.PORT}`);
 });
 // }
-
-// Minimal strip
-// import express from "express";
-
-// const app = express();
-
-// app.get("/", (req, res) => {
-//   res.json({ message: "API working" });
-// });
-
-// export default app;

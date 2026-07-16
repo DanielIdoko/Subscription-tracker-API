@@ -58,7 +58,7 @@ const allowedOrigins = [
 
 app.use(
   cors({
-    origin: ["https://managel-app.vercel.app", 'http://localhost:5173'],
+    origin: ["https://managel-app.vercel.app", "http://localhost:5173"],
     // origin: (origin = process.env.CORS_ORIGIN, callback) => {
     //   if (!origin) return callback(null, true);
 
@@ -136,12 +136,12 @@ app.use(errorHandler);
 
 export default app;
 
-if (process.env.NODE_ENV === "development") {
-  app.listen(process.env.PORT, async () => {
-    await connectDatabase();
-    console.log(`Server running on http://localhost:${process.env.PORT}`);
-  });
-}
+// if (process.env.NODE_ENV === "development") {
+app.listen(process.env.PORT, async () => {
+  await connectDatabase();
+  console.log(`Server running on http://localhost:${process.env.PORT}`);
+});
+// }
 
 // Minimal strip
 // import express from "express";

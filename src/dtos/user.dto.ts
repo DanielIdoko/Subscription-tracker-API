@@ -29,7 +29,7 @@ export const RefreshTokenSchema = z.object({
   refreshToken: z.string().min(1, "Refresh token is required"),
 });
 
-// Type inference from schemas
+
 export type RegisterUserInput = z.infer<typeof RegisterUserSchema>;
 export type LoginUserInput = z.infer<typeof LoginUserSchema>;
 export type UpdateUserInput = z.infer<typeof UpdateUserSchema>;

@@ -137,7 +137,7 @@ app.use(errorHandler);
 export default app;
 
 // if (process.env.NODE_ENV === "development") {
-app.listen(process.env.PORT, async () => {
+app.listen(Number(process.env.PORT), '0.0.0.0', async () => {
   await connectDatabase();
   console.log(`Server running on http://localhost:${process.env.PORT}`);
 });

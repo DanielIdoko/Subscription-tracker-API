@@ -1,13 +1,13 @@
 {
+  
   "name": "subscription-api",
-  "main": "server.ts",
+  "version": "1.0.0",
   "description": "",
-  "type": "module",
-  "private": true,
+  "main": "server.ts",
   "scripts": {
     "build": "tsc",
-    "dev": "ts-node server.js",
-    "start": "node server.ts",
+    "dev": "ts-node server.ts",
+    "start": "node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {

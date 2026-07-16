@@ -1,6 +1,6 @@
 
 import mongoose from "mongoose";
-import { config } from "../config/env";
+import { config } from "../config/env.js";
 
 /**
  * Connect to MongoDB

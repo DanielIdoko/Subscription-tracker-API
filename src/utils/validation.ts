@@ -1,4 +1,4 @@
-import { ValidationError } from "../errors/AppError";
+import { ValidationError } from "../errors/AppError.js";
 
 /**
  * Validate email format

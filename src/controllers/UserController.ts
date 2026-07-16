@@ -1,10 +1,10 @@
 import { Response } from "express";
-import { AuthenticatedRequest } from "../types/index";
-import { userService } from "../services/UserService";
-import { UpdateUserSchema } from "../dtos/user.dto";
-import { sendSuccess, sendError } from "../utils/response";
-import { MESSAGES } from "../constants/index";
-import { ValidationError } from "../errors/AppError";
+import { AuthenticatedRequest } from "../types/index.js";
+import { userService } from "../services/UserService.js";
+import { UpdateUserSchema } from "../dtos/user.dto.js";
+import { sendSuccess, sendError } from "../utils/response.js";
+import { MESSAGES } from "../constants/index.js";
+import { ValidationError } from "../errors/AppError.js";
 
 /**
  * User Controller

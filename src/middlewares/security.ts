@@ -1,6 +1,6 @@
 import helmet from "helmet";
 import express from "express";
-import { config } from "../config/env";
+import { config } from "../config/env.js";
 
 /**
  * Apply Security Middlewares

@@ -1,8 +1,8 @@
-import { userRepository } from "../repositories/UserRepository";
-import { NotFoundError } from "../errors/AppError";
-import { IUser } from "../types/index";
-import { UpdateUserInput } from "../dtos/user.dto";
-import { hashPassword } from "../utils/password";
+import { userRepository } from "../repositories/UserRepository.js";
+import { NotFoundError } from "../errors/AppError.js";
+import { IUser } from "../types/index.js";
+import { UpdateUserInput } from "../dtos/user.dto.js";
+import { hashPassword } from "../utils/password.js";
 
 /**
  * User Service

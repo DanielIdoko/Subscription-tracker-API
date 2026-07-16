@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { authController } from "../controllers/AuthController";
-import { authenticate, asyncHandler } from "../middlewares/index";
-import { authLimiter } from "../middlewares/rateLimiter";
-import { AuthenticatedRequest } from "../types/index";
+import { authController } from "../controllers/AuthController.js";
+import { authenticate, asyncHandler } from "../middlewares/index.js";
+import { authLimiter } from "../middlewares/rateLimiter.js";
+import { AuthenticatedRequest } from "../types/index.js";
 
 const router = Router();
 

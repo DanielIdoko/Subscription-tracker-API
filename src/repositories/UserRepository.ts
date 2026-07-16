@@ -1,6 +1,6 @@
-import { User } from "../models/User";
-import { IUser } from "../types/index";
-import { NotFoundError, ConflictError } from "../errors/AppError";
+import { User } from "../models/User.js";
+import { IUser } from "../types/index.js";
+import { NotFoundError, ConflictError } from "../errors/AppError.js";
 
 /**
  * User Repository

@@ -2,17 +2,17 @@ import {
   AuthenticationError,
   ConflictError,
   NotFoundError,
-} from "../errors/AppError";
-import { userRepository } from "../repositories/UserRepository";
+} from "../errors/AppError.js";
+import { userRepository } from "../repositories/UserRepository.js";
 import {
   generateToken,
   generateRefreshToken,
   verifyRefreshToken,
-} from "../utils/jwt";
-import { hashPassword, comparePassword } from "../utils/password";
-import { IUser, JWTPayload } from "../types/index";
-import { RegisterUserInput, LoginUserInput } from "../dtos/user.dto";
-import { notificationService } from "./NotificationService";
+} from "../utils/jwt.js";
+import { hashPassword, comparePassword } from "../utils/password.js";
+import { IUser, JWTPayload } from "../types/index.js";
+import { RegisterUserInput, LoginUserInput } from "../dtos/user.dto.js";
+import { notificationService } from "./NotificationService.js";
 import crypto from "crypto";
 
 /**
@@ -182,7 +182,7 @@ export class AuthService {
    */
   async verifyToken(token: string): Promise<JWTPayload> {
     // This will throw AuthenticationError if invalid
-    const { verifyToken: verify } = await import("../utils/jwt");
+    const { verifyToken: verify } = await import("../utils/jwt.js");
     const payload = verify(token);
     return payload;
   }

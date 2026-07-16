@@ -1,6 +1,6 @@
-import { Subscription } from "../models/Subscription";
-import { ISubscription, QueryOptions } from "../types/index";
-import { NotFoundError } from "../errors/AppError";
+import { Subscription } from "../models/Subscription.js";
+import { ISubscription, QueryOptions } from "../types/index.js";
+import { NotFoundError } from "../errors/AppError.js";
 import mongoose from "mongoose";
 
 /**

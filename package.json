@@ -1,13 +1,13 @@
 {
   "name": "subscription-api",
-  "main": "dist/server.js",
+  "main": "server.ts",
   "type": "commonjs",
   "private": true,
   "scripts": {
-    "dev": "bun server.ts",
+    "build": "tsc",
+    "dev": "ts-node server.ts",
     "start": "node dist/server.js",
-    "seed": "ts-node scripts/seed.ts",
-    "build": "tsc"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
     "@types/bun": "^1.3.9",

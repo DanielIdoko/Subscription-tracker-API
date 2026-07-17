@@ -6,15 +6,15 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
-import { connectDatabase } from "./src/database/connection.js";
-import { globalLimiter } from "./src/middlewares/rateLimiter.js";
-import { errorHandler, notFoundHandler } from "./src/middlewares/index.js";
+import { connectDatabase } from "./src/database/connection";
+import { globalLimiter } from "./src/middlewares/rateLimiter";
+import { errorHandler, notFoundHandler } from "./src/middlewares/index";
 
 // Routes
-import { authRoutes } from "./src/routes/auth.routes.js";
-import { userRoutes } from "./src/routes/user.routes.js";
-import { subscriptionRoutes } from "./src/routes/subscription.routes.js";
-import { dashboardRoutes } from "./src/routes/dashboard.routes.js";
+import { authRoutes } from "./src/routes/auth.routes";
+import { userRoutes } from "./src/routes/user.routes";
+import { subscriptionRoutes } from "./src/routes/subscription.routes";
+import { dashboardRoutes } from "./src/routes/dashboard.routes";
 
 const PORT = process.env.PORT || 5500;
 const app: Application = express();

@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { dashboardController } from "../controllers/DashboardController.js";
-import { authenticate, asyncHandler } from "../middlewares/index.js";
-import { apiLimiter } from "../middlewares/rateLimiter.js";
-import { AuthenticatedRequest } from "../types/index.js";
+import { dashboardController } from "../controllers/DashboardController";
+import { authenticate, asyncHandler } from "../middlewares/index";
+import { apiLimiter } from "../middlewares/rateLimiter";
+import { AuthenticatedRequest } from "../types/index";
 
 const router = Router();
 

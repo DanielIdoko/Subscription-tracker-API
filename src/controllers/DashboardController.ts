@@ -1,9 +1,9 @@
 import { Response } from "express";
-import { AuthenticatedRequest } from "../types/index.js";
-import { dashboardService } from "../services/DashboardService.js";
-import { sendSuccess, sendError } from "../utils/response.js";
-import { MESSAGES } from "../constants/index.js";
-import { ValidationError } from "../errors/AppError.js";
+import { AuthenticatedRequest } from "../types/index";
+import { dashboardService } from "../services/DashboardService";
+import { sendSuccess, sendError } from "../utils/response";
+import { MESSAGES } from "../constants/index";
+import { ValidationError } from "../errors/AppError";
 
 /**
  * Dashboard Controller

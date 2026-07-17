@@ -1,6 +1,6 @@
 import cron from "node-cron";
-import { subscriptionRepository } from "../repositories/SubscriptionRepository.js";
-import { CRON_TIMING } from "../constants/index.js";
+import { subscriptionRepository } from "../repositories/SubscriptionRepository";
+import { CRON_TIMING } from "../constants/index";
 
 /**
  * Cron Job: Check for upcoming subscription renewals

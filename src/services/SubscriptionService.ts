@@ -1,11 +1,11 @@
-import { subscriptionRepository } from "../repositories/SubscriptionRepository.js";
-import { NotFoundError, AuthorizationError } from "../errors/AppError.js";
-import { ISubscription, QueryOptions } from "../types/index.js";
+import { subscriptionRepository } from "../repositories/SubscriptionRepository";
+import { NotFoundError, AuthorizationError } from "../errors/AppError";
+import { ISubscription, QueryOptions } from "../types/index";
 import {
   CreateSubscriptionInput,
   UpdateSubscriptionInput,
-} from "../dtos/subscription.dto.js";
-import { notificationService } from "./NotificationService.js";
+} from "../dtos/subscription.dto";
+import { notificationService } from "./NotificationService";
 import mongoose from "mongoose";
 
 /**

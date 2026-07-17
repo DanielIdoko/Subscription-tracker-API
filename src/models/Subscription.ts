@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose";
-import { ISubscription } from "../types/index.js";
-import { SUBSCRIPTION_CATEGORIES } from "../constants/index.js";
+import { ISubscription } from "../types/index";
+import { SUBSCRIPTION_CATEGORIES } from "../constants/index";
 
 interface ISubscriptionDocument extends ISubscription, Document {}
 

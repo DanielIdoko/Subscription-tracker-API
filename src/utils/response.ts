@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { ApiResponse, PaginatedResponse, PaginationDetails } from "../types/index.js";
+import { ApiResponse, PaginatedResponse, PaginationDetails } from "../types/index";
 
 /**
  * Send Success Response

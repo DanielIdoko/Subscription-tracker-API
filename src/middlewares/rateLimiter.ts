@@ -1,5 +1,5 @@
 import rateLimit from "express-rate-limit";
-import { config } from "../config/env.js";
+import { config } from "../config/env";
 
 /**
  * Global Rate Limiter

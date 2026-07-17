@@ -2,17 +2,17 @@ import {
   AuthenticationError,
   ConflictError,
   NotFoundError,
-} from "../errors/AppError.js";
-import { userRepository } from "../repositories/UserRepository.js";
+} from "../errors/AppError";
+import { userRepository } from "../repositories/UserRepository";
 import {
   generateToken,
   generateRefreshToken,
   verifyRefreshToken,
-} from "../utils/jwt.js";
-import { hashPassword, comparePassword } from "../utils/password.js";
-import { IUser, JWTPayload } from "../types/index.js";
-import { RegisterUserInput, LoginUserInput } from "../dtos/user.dto.js";
-import { notificationService } from "./NotificationService.js";
+} from "../utils/jwt";
+import { hashPassword, comparePassword } from "../utils/password";
+import { IUser, JWTPayload } from "../types/index";
+import { RegisterUserInput, LoginUserInput } from "../dtos/user.dto";
+import { notificationService } from "./NotificationService";
 import crypto from "crypto";
 
 /**

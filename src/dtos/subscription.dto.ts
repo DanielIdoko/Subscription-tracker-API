@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { SUBSCRIPTION_CATEGORIES, BILLING_CYCLES } from "../constants/index.js";
+import { SUBSCRIPTION_CATEGORIES, BILLING_CYCLES } from "../constants/index";
 
 /**
  * Subscription DTOs

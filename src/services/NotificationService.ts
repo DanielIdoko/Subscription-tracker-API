@@ -1,7 +1,7 @@
-import { subscriptionRepository } from "../repositories/SubscriptionRepository.js";
-import { userRepository } from "../repositories/UserRepository.js";
+import { subscriptionRepository } from "../repositories/SubscriptionRepository";
+import { userRepository } from "../repositories/UserRepository";
 import { Resend } from "resend";
-import { config } from "../config/env.js";
+import { config } from "../config/env";
 
 /**
  * Notification Service

@@ -3,7 +3,7 @@
   "name": "subscription-api",
   "version": "1.0.0",
   "description": "",
-  "main": "server.ts",
+  "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
     "dev": "ts-node server.ts",
